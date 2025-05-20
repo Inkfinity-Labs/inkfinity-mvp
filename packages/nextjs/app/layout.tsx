@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { StarknetProvider } from "@/components/StarknetProvider";
 import { SidebarProvider } from "@/components/DashboardSidebar";
 import { Header } from "@/components/Header";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,8 +31,16 @@ export default function RootLayout({
           <StarknetProvider>
             <SidebarProvider>
               <div className="relative min-h-screen">
-                <Header />
-                {children}
+                <BackgroundGradientAnimation
+                  size="80%"
+                  blendingValue="hard-light"
+                  interactive={true}
+                  containerClassName="fixed inset-0 -z-50 pointer-events-none"
+                />
+                <div className="relative z-10">
+                  <Header />
+                  {children}
+                </div>
               </div>
             </SidebarProvider>
           </StarknetProvider>
