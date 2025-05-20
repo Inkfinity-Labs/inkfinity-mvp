@@ -1,38 +1,36 @@
 "use client";
 
-import { useMemo } from "react";
 import { useTheme } from "next-themes";
-import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
-export const SwitchTheme = ({ className }: { className?: string }) => {
+export const SwitchTheme = () => {
   const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  const handleToggle = () => {
-    if (isDarkMode) {
-      setTheme("light");
-      return;
-    }
-    setTheme("dark");
-  };
+  // Avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const isDarkMode = useMemo(() => {
-    return resolvedTheme === "dark";
-  }, [resolvedTheme]);
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <div
-      className={`flex space-x-2 h-5 items-center justify-center text-sm border-l border-neutral px-4 ${className}`}
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      className="h-9 w-9"
     >
-      {
-        <label
-          htmlFor="theme-toggle"
-          className={`swap swap-rotate ${!isDarkMode ? "swap-active" : ""}`}
-          onClick={handleToggle}
-        >
-          <SunIcon className="swap-on h-5 w-5" />
-          <MoonIcon className="swap-off h-5 w-5" />
-        </label>
-      }
-    </div>
+      {resolvedTheme === "dark" ? (
+        <Sun className="h-5 w-5" />
+      ) : (
+        <Moon className="h-5 w-5" />
+      )}
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   );
 };

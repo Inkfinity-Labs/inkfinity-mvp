@@ -1,26 +1,42 @@
 import type { Metadata } from "next";
-import { ScaffoldStarkAppWithProviders } from "~~/components/ScaffoldStarkAppWithProviders";
-import "~~/styles/globals.css";
-import { ThemeProvider } from "~~/components/ThemeProvider";
+import { Inter } from "next/font/google";
+import "@/styles/globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { StarknetProvider } from "@/components/StarknetProvider";
+import { SidebarProvider } from "@/components/DashboardSidebar";
+import { Header } from "@/components/Header";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Scaffold-Stark",
-  description: "Fast track your starknet journey",
-  icons: "/logo.ico",
+  title: "Inkfinity",
+  description: "NFT Marketplace for Tattoo Artists",
 };
 
-const ScaffoldStarkApp = ({ children }: { children: React.ReactNode }) => {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html suppressHydrationWarning>
-      <body suppressHydrationWarning>
-        <ThemeProvider enableSystem>
-          <ScaffoldStarkAppWithProviders>
-            {children}
-          </ScaffoldStarkAppWithProviders>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <StarknetProvider>
+            <SidebarProvider>
+              <div className="relative min-h-screen">
+                <Header />
+                {children}
+              </div>
+            </SidebarProvider>
+          </StarknetProvider>
         </ThemeProvider>
       </body>
     </html>
   );
-};
-
-export default ScaffoldStarkApp;
+}
