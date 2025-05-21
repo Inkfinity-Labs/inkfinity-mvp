@@ -7,6 +7,7 @@ import { WalletConnectButton } from "@/components/WalletConnectButton";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useSidebar } from "@/components/DashboardSidebar";
 import { SwitchTheme } from "@/components/SwitchTheme";
+import Image from "next/image";
 
 export function Header() {
   const pathname = usePathname();
@@ -18,11 +19,20 @@ export function Header() {
 
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-24 items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link href="/" className="font-bold text-xl">
-            Inkfinity
-          </Link>
+          {!isDashboard && (
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/inkfinity-logo.png"
+                alt="Inkfinity Logo"
+                width={100}
+                height={50}
+                className="object-contain transition-all duration-300 dark:invert dark:brightness-200"
+                priority
+              />
+            </Link>
+          )}
           {isMarketplace && (
             <nav className="hidden md:flex gap-6">
               <Link

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { createContext, useContext, useState } from "react";
 import { X } from "lucide-react";
+import Image from "next/image";
 
 interface SidebarContextType {
   isOpen: boolean;
@@ -44,16 +45,15 @@ export function DashboardSidebar() {
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="flex h-16 items-center justify-between border-b px-6">
-        <h2 className="text-lg font-semibold">Dashboard</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => toggleSidebar()}
-          className="md:hidden"
-        >
-          <X className="h-5 w-5" />
-        </Button>
+      <div className="flex flex-col items-center justify-center h-30 px-6 mb-2">
+        <Image
+          src="/inkfinity-logo.png"
+          alt="Inkfinity Logo"
+          width={140}
+          height={70}
+          className="object-contain transition-all duration-300 dark:invert dark:brightness-200"
+          priority
+        />
       </div>
       <nav className="p-4 space-y-2">
         <Link
