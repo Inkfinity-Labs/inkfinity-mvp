@@ -82,7 +82,7 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
-        "moveHorizontal": {
+        moveHorizontal: {
           "0%": {
             transform: "translateX(-50%) translateY(-10%)",
           },
@@ -93,7 +93,7 @@ module.exports = {
             transform: "translateX(-50%) translateY(-10%)",
           },
         },
-        "moveInCircle": {
+        moveInCircle: {
           "0%": {
             transform: "rotate(0deg)",
           },
@@ -104,7 +104,7 @@ module.exports = {
             transform: "rotate(360deg)",
           },
         },
-        "moveVertical": {
+        moveVertical: {
           "0%": {
             transform: "translateY(-50%)",
           },
@@ -119,11 +119,11 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "first": "moveVertical 30s ease infinite",
-        "second": "moveInCircle 20s reverse infinite",
-        "third": "moveInCircle 40s linear infinite",
-        "fourth": "moveHorizontal 40s ease infinite",
-        "fifth": "moveInCircle 20s ease infinite",
+        first: "moveVertical 30s ease infinite",
+        second: "moveInCircle 20s reverse infinite",
+        third: "moveInCircle 40s linear infinite",
+        fourth: "moveHorizontal 40s ease infinite",
+        fifth: "moveInCircle 20s ease infinite",
       },
     },
   },
