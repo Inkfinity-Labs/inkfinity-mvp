@@ -4,6 +4,11 @@ pub mod systems {
 
 pub mod models;
 
+pub mod tokens {
+    pub mod ArtistCollection;
+    pub mod CollectionFactory;
+}
+
 // pub mod components {
 //     pub mod payable;
 // }
