@@ -34,7 +34,6 @@ export default function RootLayout({
                 <BackgroundGradientAnimation
                   size="80%"
                   blendingValue="hard-light"
-                  interactive={true}
                   containerClassName="fixed inset-0 -z-50 pointer-events-none"
                 />
                 <div className="relative z-10">

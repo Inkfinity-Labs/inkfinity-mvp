@@ -3,10 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { WalletConnectButton } from "@/components/WalletConnectButton";
+import ControllerConnectButton from "@/components/WalletConnectButton";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useSidebar } from "@/components/DashboardSidebar";
 import { SwitchTheme } from "@/components/SwitchTheme";
+
+// Interface para una cuenta Starknet segura
+export interface StarknetAccount {
+  address: string;
+  // Puedes agregar más campos si lo necesitas
+}
+
+// Type guard para validar la cuenta
+export function isValidAccount(account: any): account is StarknetAccount {
+  return !!account && typeof account.address === "string";
+}
 
 export function Header() {
   const pathname = usePathname();
@@ -69,7 +80,7 @@ export function Header() {
               <Button variant="ghost">Dashboard</Button>
             </Link>
           )}
-          <WalletConnectButton />
+          <ControllerConnectButton />
           {isDashboard && (
             <Button variant="ghost" size="icon" onClick={toggleSidebar}>
               {isOpen ? (
