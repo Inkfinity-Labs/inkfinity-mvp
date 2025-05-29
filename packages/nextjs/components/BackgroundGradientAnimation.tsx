@@ -47,7 +47,7 @@ export function BackgroundGradientAnimation({
         0,
         curX,
         curY,
-        parseInt(size) || 500
+        parseInt(size) || 500,
       );
 
       gradient.addColorStop(0, "#7775D6");
@@ -56,7 +56,7 @@ export function BackgroundGradientAnimation({
       context.filter = `blur(50px) brightness(1.5) ${blendingValue}(0.7)`;
       context.fillStyle = gradient;
       context.fillRect(0, 0, canvas.width, canvas.height);
-      
+
       window.requestAnimationFrame(gradientAnimation);
     };
 
@@ -65,10 +65,7 @@ export function BackgroundGradientAnimation({
 
   return (
     <div className={cn("fixed inset-0 -z-10", containerClassName)}>
-      <canvas
-        ref={canvasRef}
-        className={cn("h-full w-full", className)}
-      />
+      <canvas ref={canvasRef} className={cn("h-full w-full", className)} />
     </div>
   );
-} 
+}
