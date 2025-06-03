@@ -6,6 +6,7 @@ import { StarknetProvider } from "@/components/StarknetProvider";
 import { SidebarProvider } from "@/components/DashboardSidebar";
 import { Header } from "@/components/Header";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
+import { Toaster } from "@/components/providers/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,6 +43,7 @@ export default function RootLayout({
                   {children}
                 </div>
               </div>
+              <Toaster />
             </SidebarProvider>
           </StarknetProvider>
         </ThemeProvider>
