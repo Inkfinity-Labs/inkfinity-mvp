@@ -25,7 +25,7 @@ export const BackgroundGradientAnimation = ({
     first: "0, 0, 0",
     second: "80, 80, 80",
     third: "120, 120, 120",
-    fourth: "160, 160, 160"
+    fourth: "160, 160, 160",
   };
 
   const lightColors = {
@@ -34,7 +34,7 @@ export const BackgroundGradientAnimation = ({
     first: "255, 255, 255",
     second: "180, 180, 180",
     third: "140, 140, 140",
-    fourth: "100, 100, 100"
+    fourth: "100, 100, 100",
   };
 
   const colors = theme === "dark" ? darkColors : lightColors;
@@ -42,12 +42,9 @@ export const BackgroundGradientAnimation = ({
   useEffect(() => {
     document.body.style.setProperty(
       "--gradient-background-start",
-      colors.start
+      colors.start,
     );
-    document.body.style.setProperty(
-      "--gradient-background-end",
-      colors.end
-    );
+    document.body.style.setProperty("--gradient-background-end", colors.end);
     document.body.style.setProperty("--first-color", colors.first);
     document.body.style.setProperty("--second-color", colors.second);
     document.body.style.setProperty("--third-color", colors.third);
@@ -65,7 +62,7 @@ export const BackgroundGradientAnimation = ({
     <div
       className={cn(
         "h-screen w-screen relative overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))] pointer-events-none",
-        containerClassName
+        containerClassName,
       )}
     >
       <svg className="hidden">
@@ -90,7 +87,7 @@ export const BackgroundGradientAnimation = ({
       <div
         className={cn(
           "gradients-container h-full w-full blur-lg pointer-events-none",
-          isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]"
+          isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]",
         )}
       >
         <div
@@ -100,7 +97,7 @@ export const BackgroundGradientAnimation = ({
             `[transform-origin:center_center]`,
             `animate-first`,
             `opacity-100`,
-            `pointer-events-none`
+            `pointer-events-none`,
           )}
         ></div>
         <div
@@ -110,7 +107,7 @@ export const BackgroundGradientAnimation = ({
             `[transform-origin:calc(50%-400px)]`,
             `animate-second`,
             `opacity-100`,
-            `pointer-events-none`
+            `pointer-events-none`,
           )}
         ></div>
         <div
@@ -120,7 +117,7 @@ export const BackgroundGradientAnimation = ({
             `[transform-origin:calc(50%+400px)]`,
             `animate-third`,
             `opacity-100`,
-            `pointer-events-none`
+            `pointer-events-none`,
           )}
         ></div>
         <div
@@ -130,10 +127,10 @@ export const BackgroundGradientAnimation = ({
             `[transform-origin:calc(50%-200px)]`,
             `animate-fourth`,
             `opacity-100`,
-            `pointer-events-none`
+            `pointer-events-none`,
           )}
         ></div>
       </div>
     </div>
   );
-}; 
+};

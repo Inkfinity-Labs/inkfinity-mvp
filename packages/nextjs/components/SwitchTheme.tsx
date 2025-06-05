@@ -27,7 +27,7 @@ export const SwitchTheme = () => {
       className={cn(
         "h-9 w-9 relative overflow-hidden transition-theme",
         "hover:bg-accent hover:text-accent-foreground",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       )}
     >
       <div className="relative w-5 h-5">
@@ -36,7 +36,7 @@ export const SwitchTheme = () => {
             "absolute h-5 w-5 transition-all duration-300",
             resolvedTheme === "dark"
               ? "rotate-0 scale-100"
-              : "rotate-90 scale-0"
+              : "rotate-90 scale-0",
           )}
         />
         <Moon
@@ -44,7 +44,7 @@ export const SwitchTheme = () => {
             "absolute h-5 w-5 transition-all duration-300",
             resolvedTheme === "dark"
               ? "-rotate-90 scale-0"
-              : "rotate-0 scale-100"
+              : "rotate-0 scale-100",
           )}
         />
       </div>

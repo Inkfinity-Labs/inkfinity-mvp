@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { createContext, useContext, useState } from "react";
 import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface SidebarContextType {
   isOpen: boolean;
@@ -38,6 +38,13 @@ export function DashboardSidebar() {
 
   const isActive = (path: string) => pathname === path;
 
+  const navigationItems = [
+    { href: "/dashboard/appointments", label: "Appointments" },
+    { href: "/dashboard/mint", label: "Mint NFT" },
+    { href: "/dashboard/nfts", label: "My NFTs" },
+    { href: "/dashboard/profile", label: "Profile Settings" },
+  ].sort((a, b) => a.label.localeCompare(b.label));
+
   return (
     <aside
       className={`fixed left-0 top-0 z-30 h-screen w-64 border-r bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300 ease-in-out ${
@@ -56,36 +63,19 @@ export function DashboardSidebar() {
         </Button>
       </div>
       <nav className="p-4 space-y-2">
-        <Link
-          href="/dashboard/nfts"
-          className={`block px-4 py-2 rounded-md transition-colors ${
-            isActive("/dashboard/nfts")
-              ? "bg-primary text-primary-foreground"
-              : "hover:bg-muted"
-          }`}
-        >
-          My NFTs
-        </Link>
-        <Link
-          href="/dashboard/mint"
-          className={`block px-4 py-2 rounded-md transition-colors ${
-            isActive("/dashboard/mint")
-              ? "bg-primary text-primary-foreground"
-              : "hover:bg-muted"
-          }`}
-        >
-          Mint NFT
-        </Link>
-        <Link
-          href="/dashboard/profile"
-          className={`block px-4 py-2 rounded-md transition-colors ${
-            isActive("/dashboard/profile")
-              ? "bg-primary text-primary-foreground"
-              : "hover:bg-muted"
-          }`}
-        >
-          Profile Settings
-        </Link>
+        {navigationItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`block px-4 py-2 rounded-md transition-colors ${
+              isActive(item.href)
+                ? "bg-primary text-primary-foreground"
+                : "hover:bg-muted"
+            }`}
+          >
+            {item.label}
+          </Link>
+        ))}
       </nav>
     </aside>
   );
