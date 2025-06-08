@@ -1,49 +1,32 @@
 import { useState } from "react";
+import { reviewSubmissionSchema, type ReviewSubmissionParams } from "@/lib/schemas/review-submission";
+import { toast } from "sonner";
 
-interface ReviewSubmissionParams {
-  appointmentId: string;
-  artistId: string;
-  rating: number;
-  comment: string;
-}
-
-interface UseReviewSubmissionReturn {
-  submitReview: (params: ReviewSubmissionParams) => Promise<void>;
-  isSubmitting: boolean;
-  error: Error | null;
-}
-
-export function useReviewSubmission(): UseReviewSubmissionReturn {
+export function useReviewSubmission() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const submitReview = async ({
-    appointmentId,
-    artistId,
-    rating,
-    comment,
-  }: ReviewSubmissionParams) => {
-    setIsSubmitting(true);
+  const submitReview = async (params: ReviewSubmissionParams) => {
     setError(null);
+    setIsSubmitting(true);
 
     try {
-      // TODO: Implement smart contract call
-      // This will be implemented when the smart contract is ready
-      // Example structure:
-      // const contract = new Contract(REVIEW_CONTRACT_ADDRESS, REVIEW_ABI, provider);
-      // await contract.submitReview(appointmentId, artistId, rating, comment);
+      // Validate inputs using Zod schema
+      const validatedParams = reviewSubmissionSchema.parse(params);
 
-      // For now, we'll just simulate a delay
+      // TODO: Implement smart contract call to submit review
+      // This will be implemented when the smart contract is ready
+      console.log("Submitting review:", validatedParams);
+
+      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // After successful submission, you might want to:
-      // 1. Update local state
-      // 2. Refresh appointment data
-      // 3. Show success message
+      toast.success("Review submitted successfully!");
+      return validatedParams;
     } catch (err) {
-      setError(
-        err instanceof Error ? err : new Error("Failed to submit review"),
-      );
+      const errorMessage = err instanceof Error ? err.message : "Failed to submit review";
+      setError(errorMessage);
+      toast.error(errorMessage);
       throw err;
     } finally {
       setIsSubmitting(false);

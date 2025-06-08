@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { StarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { reviewSubmissionSchema, type ReviewSubmissionParams } from "@/lib/schemas/review-submission";
 
 interface ReviewFormProps {
   appointmentId: string;
@@ -23,20 +24,32 @@ export function ReviewForm({
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (rating === 0) {
-      toast.error("Please select a rating");
-      return;
-    }
+    setError(null);
 
     try {
+      // Validate inputs using Zod schema
+      const reviewData = reviewSubmissionSchema.parse({
+        appointmentId,
+        artistId,
+        rating,
+        comment,
+      });
+
       setIsSubmitting(true);
-      await onSubmit({ rating, comment });
+      await onSubmit({ rating: reviewData.rating, comment: reviewData.comment });
       toast.success("Review submitted successfully!");
     } catch (error) {
-      toast.error("Failed to submit review. Please try again.");
+      if (error instanceof Error) {
+        setError(error.message);
+        toast.error(error.message);
+      } else {
+        setError("Failed to submit review. Please try again.");
+        toast.error("Failed to submit review. Please try again.");
+      }
       console.error("Review submission error:", error);
     } finally {
       setIsSubmitting(false);
@@ -53,7 +66,9 @@ export function ReviewForm({
               key={star}
               type="button"
               onClick={() => setRating(star)}
-              className="focus:outline-none"
+              className="focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+              aria-label={`Rate ${star} out of 5 stars`}
+              aria-pressed={star <= rating}
             >
               <StarIcon
                 className={cn(
@@ -69,17 +84,29 @@ export function ReviewForm({
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="comment" className="text-sm font-medium">
-          Your Review
-        </label>
+        <div className="flex justify-between items-center">
+          <label htmlFor="comment" className="text-sm font-medium">
+            Your Review
+          </label>
+          <span className="text-xs text-muted-foreground">
+            {comment.length}/500 characters
+          </span>
+        </div>
         <Textarea
           id="comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Share your experience with this artist..."
           className="min-h-[100px]"
+          maxLength={500}
         />
       </div>
+
+      {error && (
+        <div className="text-sm text-destructive">
+          {error}
+        </div>
+      )}
 
       <div className="flex justify-end gap-2">
         <Button
